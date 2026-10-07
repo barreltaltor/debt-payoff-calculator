@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free Debt Payoff Calculator Spreadsheet (Snowball vs Avalanche, Excel)</title>
+<meta name="description" content="Type your debts and one monthly budget. See your debt-free month, total interest, and a month-by-month payment schedule. Free Excel download, no sign-up.">
+<link rel="canonical" href="https://barreltaltor.github.io/debt-payoff-calculator/">
+<meta property="og:title" content="Free Debt Payoff Calculator Spreadsheet">
+<meta property="og:description" content="Your debt-free month, total interest, and what to pay on each debt every month. Free Excel download, no sign-up.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://barreltaltor.github.io/debt-payoff-calculator/">
+<meta property="og:image" content="https://barreltaltor.github.io/debt-payoff-calculator/start.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" rel="stylesheet">
+<style>
+/* Base: Refero "Ramp" DESIGN.md (editorial finance desk). Single weight 400, hairline borders, no shadows,
+   one chartreuse accent used only on the download / buy actions. */
+:root {
+  --color-highlighter-yellow: #e4f222;
+  --color-ink: #0c0a08;
+  --color-obsidian: #1a1919;
+  --color-paper: #ffffff;
+  --color-bone: #f4f2f0;
+  --color-ash: #6d6c6b;
+  --color-hairline: #e5e7eb;
+  --color-smoke: #d3d3d3;
+  --font: "Inter", "IBM Plex Sans", system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--color-bone); color: var(--color-ink);
+  font-family: var(--font); font-weight: 400; font-size: 16px; line-height: 1.5;
+  font-feature-settings: "ss01" on;
+}
+b, strong, th, h1, h2, h3 { font-weight: 400; }
+a { color: var(--color-ink); }
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+header.top { border-bottom: 1px solid var(--color-hairline); background: var(--color-paper); }
+header.top .wrap { height: 56px; display: flex; align-items: center; justify-content: space-between; }
+.label { font-size: 10px; line-height: 2.2; letter-spacing: 0.018em; text-transform: uppercase; color: var(--color-ash); }
+.hero { padding: 64px 0 48px; }
+h1 { font-size: 48px; line-height: 1.05; margin: 0 0 24px; letter-spacing: 0; }
+.lede { font-size: 20px; line-height: 1.3; margin: 0 0 32px; }
+h2 { font-size: 28px; line-height: 1.14; margin: 0 0 20px; }
+section { padding: 48px 0; border-top: 1px solid var(--color-hairline); }
+.btn {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 10px 20px; line-height: 1.5; border-radius: 6px;
+  text-decoration: none; font-size: 16px; border: 0; color: var(--color-ink);
+}
+.btn-primary { background: var(--color-highlighter-yellow); }
+.btn-primary:hover { background: #d6e41a; }
+.btn-note { display: block; margin-top: 12px; font-size: 14px; color: var(--color-ash); }
+figure { margin: 32px 0 0; }
+.shot {
+  background: var(--color-paper); border: 1px solid var(--color-hairline); border-radius: 16px;
+  padding: 20px; overflow: hidden;
+}
+.shot img { display: block; width: 100%; height: auto; }
+figcaption { font-size: 14px; color: var(--color-ash); margin-top: 12px; }
+ul.tabs { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+ul.tabs li {
+  background: var(--color-paper); border: 1px solid var(--color-hairline); border-radius: 16px; padding: 20px;
+}
+ul.tabs .name { display: block; font-size: 20px; line-height: 1.3; margin-bottom: 4px; }
+.table-scroll { overflow-x: auto; background: var(--color-paper); border: 1px solid var(--color-hairline); border-radius: 16px; }
+table { border-collapse: collapse; width: 100%; min-width: 520px; font-size: 16px; }
+th, td { text-align: left; padding: 12px 20px; border-bottom: 1px solid var(--color-hairline); }
+th { font-size: 10px; line-height: 2.2; letter-spacing: 0.018em; text-transform: uppercase; color: var(--color-ash); }
+tr:last-child td { border-bottom: 0; }
+td.num { font-variant-numeric: tabular-nums; }
+.quote {
+  background: var(--color-obsidian); color: var(--color-paper); border-radius: 16px; padding: 24px;
+  font-size: 24px; line-height: 1.17; margin: 24px 0;
+}
+.quote .label { display: block; margin-bottom: 8px; }
+.wash { background: var(--color-paper); border: 1px solid var(--color-hairline); border-radius: 16px; padding: 24px; margin-top: 32px; }
+dl.faq dt { font-size: 20px; line-height: 1.3; margin-top: 24px; }
+dl.faq dd { margin: 8px 0 0; }
+footer { padding: 48px 0 64px; border-top: 1px solid var(--color-hairline); font-size: 14px; color: var(--color-ash); }
+footer p { margin: 0 0 8px; }
+@media (max-width: 600px) {
+  .hero { padding: 40px 0 32px; }
+  h1 { font-size: 40px; }
+  .lede { font-size: 18px; }
+  section { padding: 40px 0; }
+  .shot { padding: 12px; }
+  .quote { font-size: 20px; line-height: 1.3; }
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><span class="label">BLT LLC · Free spreadsheet</span><a class="label" href="#download">Download</a></div></header>
+
+<main class="wrap">
+<div class="hero">
+  <h1>Free Debt Payoff Calculator Spreadsheet</h1>
+  <p class="lede">Type your debts and one monthly budget. You get the month you'll be debt-free, how much interest you'll pay, and exactly what to pay on each debt every month.</p>
+  <a id="download" class="btn btn-primary" href="debt_payoff_calculator_free.xlsx" download>Download the free spreadsheet (.xlsx)</a>
+  <span class="btn-note">No email, no Google account, no sign-up. Excel file.</span>
+  <figure>
+    <div class="shot"><img src="start.png" width="770" height="847" alt="The Start tab: debt-free Jan 2030, 40 months, $3,832 interest, and the balance chart"></div>
+    <figcaption>The Start tab with 5 example debts, $900 a month, Snowball.</figcaption>
+  </figure>
+</div>
+
+<section>
+  <h2>What's in the free file</h2>
+  <ul class="tabs">
+    <li><span class="name">Start</span>Up to 15 debts (name, balance, APR, minimum payment), one monthly budget, Snowball or Avalanche. Shows your debt-free month, months to go, total interest, the order to pay them off, and the month each one is gone. A chart of your total balance going to $0.</li>
+    <li><span class="name">Schedule</span>Every month for up to 10 years: what to pay on each debt, its balance after the payment, interest that month, and your total balance.</li>
+    <li><span class="name">Compare</span>Snowball and Avalanche side by side, so you can see what the order costs you.</li>
+    <li><span class="name">Quick Start</span>Six steps, about a minute.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Example: 5 debts, $31,550, $900 a month</h2>
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>Method</th><th>Debt-free</th><th>Months</th><th>Total interest</th></tr></thead>
+      <tbody>
+        <tr><td>Snowball (smallest balance first)</td><td>Jan 2030</td><td class="num">40</td><td class="num">$3,831.91</td></tr>
+        <tr><td>Avalanche (highest APR first)</td><td>Jan 2030</td><td class="num">40</td><td class="num">$3,646.12</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Same month, but Avalanche saves $186 here. Snowball clears your small debts sooner (the Medical bill is gone in Mar 2027 with Snowball vs Sep 2028 with Avalanche), which keeps some people going. The Compare tab shows this for your own numbers.</p>
+</section>
+
+<section id="paid">
+  <h2>The part the free file doesn't do</h2>
+  <p>This free file gives you a plan. It can't tell you whether you're keeping up with it.</p>
+  <p>The paid Debt Payoff Planner adds a Progress tab. Once a month you type your real total balance, and it tells you where you stand against your plan:</p>
+  <div class="quote"><span class="label">Progress tab</span>Debt-free by Sep 2029 (4 months ahead)</div>
+  <figure>
+    <div class="shot"><img src="progress.png" width="1400" height="943" loading="lazy" alt="The paid Progress tab with 9 months logged: Debt-free by Sep 2029 (4 months ahead)"></div>
+    <figcaption>The paid Progress tab with 9 example months logged. It also shows percent paid off and milestones.</figcaption>
+  </figure>
+  <div class="wash">
+    <p style="margin-top:0">Your free file carries over: copy the 4 columns (Name, Balance, APR, Minimum) into the paid Start tab — same cells — and Progress works right away.</p>
+    <p class="btn-note" style="margin:0">The paid version is not on sale yet.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Questions</h2>
+  <dl class="faq">
+    <dt>Is the free version really free?</dt>
+    <dd>Yes. No email, no trial, no expiry.</dd>
+    <dt>Excel or Google Sheets?</dt>
+    <dd>The free file is an Excel .xlsx.</dd>
+    <dt>How is interest calculated?</dt>
+    <dd>Monthly: balance × APR ÷ 12, then your payment. Each debt gets its minimum; whatever is left of your budget goes to the target debt (smallest balance for Snowball, highest APR for Avalanche). When a debt is paid off, its payment rolls to the next one.</dd>
+    <dt>What if my budget is too small?</dt>
+    <dd>If the plan runs past 10 years, Start says so and shows how much to raise your monthly budget.</dd>
+  </dl>
+</section>
+</main>
+
+<footer><div class="wrap">
+  <p>This is a planning tool, not financial advice. Designed with AI assistance; all formulas tested in Excel.</p>
+  <p>Made by BLT LLC (Japan).</p>
+</div></footer>
+</body>
+</html>
